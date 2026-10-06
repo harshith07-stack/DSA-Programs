@@ -1,72 +1,64 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define SIZE 5
-struct queue{
-int front,rear;
-int data[SIZE];
+struct stack
+{
+    int top;
+    int data[SIZE];
 };
-typedef struct queue QUEUE;
-void enqueue(QUEUE*q,int item)
+typedef struct stack STACK;
+void push(STACK *s,int item)
 {
-
-    if(q->rear==SIZE-1)
-        printf("\n Queue full");
-    else{
-        q->rear=q->rear+1;
-        q->data[q->rear]=item;
-        if(q->front==-1)
-            q->front=0;
+    if(s->top==SIZE-1)
+        printf("\nStack Overflow");
+    else
+    {
+        s->top=s->top+1;
+        s->data[s->top]=item;
     }
 }
-void dequeue(QUEUE*q)
+void pop(STACK *s)
 {
-    if(q->front==-1)
-        printf("\n Queue empty");
+    if(s->top==-1)
+    printf("\nStack Underflow");
     else{
-        printf("\n Element deleted is %d",q->data[q->front]);
-        if(q->front==q->rear)
-        {
-            q->front=-1;
-            q->rear=-1;
-        }
-        else
-            q->front=q->front+1;
+        printf("\nElement poped is %d",s->data[s->top]);
+        s->top=s->top-1;
     }
 }
-void display(QUEUE q)
+void display(STACK s)
 {
     int i;
-    if(q.front==-1)
-        printf("\n Queue is empty ");
+    if(s.top==-1)
+        printf("\nStack is Empty");
     else{
-        printf("\n The content of queue are \n");
-        for(i=q.front;i<=q.rear;i++)
-            printf("%d \t",q.data[i]);
+        printf("\nStack content are \n");
+        for(i=s.top;i>=0;i--)
+            printf("%d\n",s.data[i]);
     }
 }
 int main()
 {
-    QUEUE q;
-    q.front=-1;
-    q.rear=-1;
     int item,ch;
+    STACK s;
+    s.top=-1;
     for(;;)
     {
-        printf("\n 1.Insert");
-        printf("\n 2.delete");
-        printf("\n 3.display");
-        printf("\n 4.Exit");
-        printf("\n Read choice:");
+        printf("\n1.push");
+        printf("\n2.pop");
+        printf("\n3.display");
+        printf("\n4.exit");
+        printf("\n read choice:");
         scanf("%d",&ch);
         switch(ch)
         {
-            case 1:printf("\n Read element to be inserted:");
+            case 1:printf("\n Read element to be pushed:");
                     scanf("%d",&item);
-                    enqueue(&q,item);
+                    push(&s,item);
                     break;
-            case 2:dequeue(&q);
+            case 2:pop(&s);
                     break;
-            case 3:display(q);
+            case 3:display(s);
                     break;
             default:exit(0);
         }
